@@ -1,16 +1,18 @@
 "use client";   // Client Component
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";  // Client Cmponent
+import { useRouter } from "next/navigation";    // to refresh page after submit
 
 export default function EarningForm() {
     // [value, setValue] ~~ [variable, function to update variable]
     const [in_date, setDate] = useState("");           // date
-    const [in_source, setSource] = useState("");       // string
+    const [in_source, setSource] = useState("AmznFlex");  // default to AmznFlex
     const [in_income, setIncome] = useState("");       // float
     const [in_mileage, setMileage] = useState("");     // float
 
     // submit message to show result of submit action
     const [submit_msg, setSubmitMsg] = useState("");
+    const router = useRouter();  // to refresh page after submit
 
     async function handleSubmit(event: React.SubmitEvent) {
 
@@ -45,6 +47,7 @@ export default function EarningForm() {
             // else, show success msg
         } else {
             setSubmitMsg("Your entry has been added");
+            router.refresh();  // refresh page to show new entry in earnings table
         }
     }
 
