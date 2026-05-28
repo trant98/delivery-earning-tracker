@@ -1,16 +1,52 @@
 "use client";   // Client Component
 import { useState } from "react";
-
-function handleSubmit() {
-
-}
+import { createClient } from "@/lib/supabase/client";  // Client Cmponent
 
 export default function EarningForm() {
     // [value, setValue] ~~ [variable, function to update variable]
-    const [date, setDate] = useState("");
-    const [source, setSource] = useState("");
-    const [income, setIncome] = useState("");
-    const [mileage, setMileage] = useState("");
+    const [in_date, setDate] = useState("");           // date
+    const [in_source, setSource] = useState("");       // string
+    const [in_income, setIncome] = useState("");       // float
+    const [in_mileage, setMileage] = useState("");     // float
+
+    // submit message to show result of submit action
+    const [submit_msg, setSubmitMsg] = useState("");
+
+    async function handleSubmit(event: React.SubmitEvent) {
+
+        // prevent the page from refresh and let React control the submit
+        event.preventDefault();
+
+        // connect to Supabase
+        const supabase = createClient();
+
+        // get logged-in user
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user === null) {
+            setSubmitMsg("You must be logged in to submit an earning entry");
+            return;
+        }
+
+        // wait and insert: date, source, income, mileage
+        const { error } = await supabase.from("earnings").insert(
+            {
+                user_id: user.id,
+                date: in_date,
+                source: in_source,
+                income: parseFloat(in_income),
+                mileage: parseFloat(in_mileage)
+            }
+        );
+
+        // if error, show error msg
+        if (error) {
+            setSubmitMsg(error.message);
+
+            // else, show success msg
+        } else {
+            setSubmitMsg("Your entry has been added");
+        }
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -19,23 +55,26 @@ export default function EarningForm() {
               */}
 
             {/* Date */}
-            <input type="date" value={date} onChange={(event) => setDate(event.target.value)} />
+            <input type="date" value={in_date} onChange={(event) => setDate(event.target.value)} />
 
             {/* Source: Amz, Uber, etc */}
-            <select value={source} onChange={(event) => setSource(event.target.value)}>
+            <select value={in_source} onChange={(event) => setSource(event.target.value)}>
                 <option value="AmznFlex">AmznFlex</option>
                 <option value="DoorDash">DoorDash</option>
                 <option value="UberEats">UberEats</option>
             </select>
 
             {/* Income */}
-            <input type="number" value={income} onChange={(event) => setIncome(event.target.value)} />
+            <input type="number" value={in_income} onChange={(event) => setIncome(event.target.value)} />
 
             {/* Mileage Driven */}
-            <input type="number" value={mileage} onChange={(event) => setMileage(event.target.value)} />
+            <input type="number" value={in_mileage} onChange={(event) => setMileage(event.target.value)} />
 
             {/* Submit button */}
             <button type="submit">Submit</button>
+
+            {/* Display the submit result */}
+            {submit_msg}
 
         </form>
     );

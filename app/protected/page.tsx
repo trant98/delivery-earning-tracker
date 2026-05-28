@@ -1,11 +1,12 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/lib/supabase/server";  // Server Cmponent
 import { InfoIcon } from "lucide-react";
 import { Suspense } from "react";
+import EarningForm from "./EarningForm";
 
 async function EarningsTable() {
   let content;  // return var
 
-  // connect to supabase => get a supabase object
+  // connect to supabase => wait to get a supabase object
   const supabase = await createClient();
 
   // go to "earnings" table from the supabase object
@@ -38,6 +39,8 @@ export default function ProtectedPage() {
           This is a protected page that you can only see as an authenticated user
         </div>
       </div>
+
+      <EarningForm />
 
       <div className="flex flex-col gap-2 items-start">
         <h2 className="font-bold text-2xl mb-4">Earnings Table</h2>
