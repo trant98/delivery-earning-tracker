@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";  // Server Cmponent
 import { InfoIcon } from "lucide-react";
 import { Suspense } from "react";
 import EarningForm from "./EarningForm";
+import DeleteRowButton from "./DeleteRowButton";
 
 async function EarningsTable() {
   let content;  // return var
