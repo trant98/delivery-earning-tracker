@@ -1,6 +1,5 @@
 import { createClient } from "@/lib/supabase/server";  // Server Cmponent
-import DeleteRowButton from "./DeleteRowButton";
-import EditRowButton from "./EditRowButton";
+import EarningsRow from "./EarningsRow";
 
 export default async function EarningsTable() {
     let content;  // return var
@@ -48,36 +47,7 @@ export default async function EarningsTable() {
                 {/* Row's Data */}
                 <tbody>
                     {earnings.map((entry) => {
-                        return <tr key={entry.id}>
-
-                            {/* Display all the saved input data */}
-                            <td className="p-2">{entry.date}</td>
-                            <td className="p-2">{entry.source}</td>
-                            <td className="p-2 text-right">${entry.income.toFixed(2)}</td>
-                            <td className="p-2 text-right">{entry.mileage.toFixed(2)}</td>
-
-                            {/* Display the Edit Button */}
-                            <td className="p-2">
-                                <div>
-                                    <EditRowButton
-                                        target_id={entry.id}
-                                        date={entry.date}
-                                        source={entry.source}
-                                        income={entry.income}
-                                        mileage={entry.mileage}
-                                    />
-
-                                    <span> | </span>
-
-                                    <DeleteRowButton delete_id={entry.id} />
-                                </div>
-                            </td>
-
-                            {/* Display all the calculated data */}
-                            <td className="p-2 text-right">${entry.gross_profit?.toFixed(2)}</td>
-                            <td className="p-2 text-right">${entry.se_tax?.toFixed(2)}</td>
-                            <td className="p-2 text-right">${entry.net_profit?.toFixed(2)}</td>
-                        </tr>;
+                        return <EarningsRow key={entry.id} entry={entry} />
                     })}
                 </tbody>
             </table>
