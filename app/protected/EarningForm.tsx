@@ -52,7 +52,7 @@ export default function EarningForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex gap-2">
             {/* When an input changes, React gives you an event. The typed value lives in
               * event.target.value
               */}
