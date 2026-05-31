@@ -22,28 +22,57 @@ export default async function EarningsTable() {
 
         // else show table of earnings
     } else {
-        content = earnings.map((entry) => {
-            return <div key={entry.id}>
+        // table
+        // ├─ thead
+        // │   └─ tr
+        // │       └─ th
+        // └─ tbody
+        //     └─ tr
+        //         └─ td
+        content =
+            <table>
+                {/* Column Headers */}
+                <thead>
+                    <tr>
+                        <th className="p-2">Date</th>
+                        <th className="p-2">Source</th>
+                        <th className="p-2">Income</th>
+                        <th className="p-2">Mileage</th>
+                        <th className="p-2">Actions</th>
+                    </tr>
+                </thead>
 
-                {/* Display all the data */}
-                {entry.date}
-                {entry.source}
-                {entry.income}
-                {entry.mileage}
+                {/* Row's Data */}
+                <tbody>
+                    {earnings.map((entry) => {
+                        return <tr key={entry.id}>
 
-                {/* Display the Edit Button */}
-                <EditRowButton
-                    target_id={entry.id}
-                    date={entry.date}
-                    source={entry.source}
-                    income={entry.income}
-                    mileage={entry.mileage}
-                />
+                            {/* Display all the data */}
+                            <td className="p-2">{entry.date}</td>
+                            <td className="p-2">{entry.source}</td>
+                            <td className="p-2">{entry.income}</td>
+                            <td className="p-2">{entry.mileage}</td>
 
-                {/* Display the Delete button */}
-                <DeleteRowButton delete_id={entry.id} />
-            </div>;
-        })
+                            {/* Display the Edit Button */}
+                            <td className="p-2">
+                                <div>
+                                    <EditRowButton
+                                        target_id={entry.id}
+                                        date={entry.date}
+                                        source={entry.source}
+                                        income={entry.income}
+                                        mileage={entry.mileage}
+                                    />
+
+                                    <span> | </span>
+
+                                    <DeleteRowButton delete_id={entry.id} />
+                                </div>
+                            </td>
+                        </tr>;
+                    })}
+                </tbody>
+            </table>
     }
 
     return content;
