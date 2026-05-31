@@ -4,6 +4,32 @@ import { createClient } from "@/lib/supabase/client";  // Client Cmponent
 import { useRouter } from "next/navigation";    // to refresh page after submit
 import { calculateEarningsData } from "./EarningsCalculation"   // to cal. profit and tax
 
+/**
+ * EarningForm
+ *
+ * Provides a user interface for submitting earning records. When the form
+ * is submitted, the component validates the logged-in user, calculates
+ * profit and tax values, stores the record in Supabase, and refreshes
+ * the page to display the updated earnings table.
+ *
+ * Get Inputs:
+ * - Date
+ * - Income Source
+ * - Income Amount
+ * - Mileage Driven
+ *
+ * Database Fields Saved:
+ * - user_id
+ * - date
+ * - source
+ * - income
+ * - mileage
+ * - gross_profit
+ * - se_tax
+ * - net_profit
+ *
+ * @returns {JSX.Element} Rendered earnings submission form.
+ */
 export default function EarningForm() {
     // [value, setValue] ~~ [variable, function to update variable]
     const [in_date, setDate] = useState("");           // date

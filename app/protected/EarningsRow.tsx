@@ -5,6 +5,23 @@ import { useRouter } from "next/navigation";
 import DeleteRowButton from "./DeleteRowButton";
 import { calculateEarningsData } from "./EarningsCalculation";
 
+/**
+ * EarningsRow
+ *
+ * Displays one earnings entry inside the earnings table.
+ * The row can switch between normal mode and editing mode.
+ *
+ * Features:
+ * - Shows saved earning data.
+ * - Allows the user to edit date, source, income, and mileage.
+ * - Recalculates gross profit, self-employment tax, and net profit.
+ * - Updates the selected row in Supabase.
+ * - Allows canceling edits and restoring the original values.
+ * - Refreshes the page after saving changes.
+ *
+ * @param entry The earnings record to display and edit.
+ * @returns A table ROW for one earnings entry.
+ */
 export default function EarningsRow(
     {
         entry
@@ -37,10 +54,17 @@ export default function EarningsRow(
     /// ========================= HELPER FUNCTIONS =============================
     /// ========================================================================
 
+    /**
+     * Enters editing mode for the selected row.
+     */
     function handleEdit() {
         setIsEditing(true);     // enter editing mode
     }
 
+    /**
+     * Cancels editing, restores the original entry values,
+     * and exits editing mode.
+     */
     function handleCancel() {
         // keep all the original values
         setNewDate(entry.date);
@@ -52,6 +76,10 @@ export default function EarningsRow(
         setIsEditing(false);
     }
 
+    /**
+     * Saves the edited earnings entry to Supabase.
+     * The function recalculates profit and tax values before updating the row.
+     */
     async function handleSave() {
         // connect to supabase
         const supabase = createClient();

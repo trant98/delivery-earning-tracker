@@ -1,6 +1,15 @@
 import { createClient } from "@/lib/supabase/server";  // Server Cmponent
 import EarningsRow from "./EarningsRow";
 
+/**
+ * EarningsTable
+ *
+ * Retrieves earnings records from Supabase
+ * and displays them in a table.
+ *
+ * @returns A table of earnings records, an empty-state message,
+ * or an error message.
+ */
 export default async function EarningsTable() {
     let content;  // return var
 

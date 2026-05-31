@@ -1,3 +1,16 @@
+/**
+ * calculateEarningsData
+ *
+ * Calculates profit and tax values for an earnings entry based on
+ * income and business mileage.
+ *
+ * @param {number} income - Total income earned.
+ * @param {number} mileage - Total business miles driven.
+ *
+ * @returns
+ * An object containing the calculated gross profit,
+ * self-employment tax, and net profit values.
+ */
 export function calculateEarningsData(
     income: number,
     mileage: number
