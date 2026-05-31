@@ -69,10 +69,10 @@ export default function EarningForm() {
                 </select>
 
                 {/* Income */}
-                <input type="number" value={in_income} onChange={(event) => setIncome(event.target.value)} />
+                <input type="number" placeholder="Income" value={in_income} onChange={(event) => setIncome(event.target.value)} />
 
                 {/* Mileage Driven */}
-                <input type="number" value={in_mileage} onChange={(event) => setMileage(event.target.value)} />
+                <input type="number" placeholder="Mileage" value={in_mileage} onChange={(event) => setMileage(event.target.value)} />
 
                 {/* Submit button */}
                 <button type="submit">Submit</button>
