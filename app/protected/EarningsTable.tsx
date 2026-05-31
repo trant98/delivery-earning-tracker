@@ -18,7 +18,7 @@ export default async function EarningsTable() {
 
         // else if empty, show "no earnings yet"
     } else if (earnings.length === 0) {
-        content = <p>No earnings yet. Please add your first entry</p>
+        content = <p>No earnings yet. Please add your first entry.</p>
 
         // else show table of earnings
     } else {
@@ -39,6 +39,9 @@ export default async function EarningsTable() {
                         <th className="p-2">Income</th>
                         <th className="p-2">Mileage</th>
                         <th className="p-2">Actions</th>
+                        <th className="p-2">Gross Profit</th>
+                        <th className="p-2">SE Tax</th>
+                        <th className="p-2">Net Profit</th>
                     </tr>
                 </thead>
 
@@ -47,7 +50,7 @@ export default async function EarningsTable() {
                     {earnings.map((entry) => {
                         return <tr key={entry.id}>
 
-                            {/* Display all the data */}
+                            {/* Display all the saved input data */}
                             <td className="p-2">{entry.date}</td>
                             <td className="p-2">{entry.source}</td>
                             <td className="p-2 text-right">${entry.income.toFixed(2)}</td>
@@ -69,6 +72,11 @@ export default async function EarningsTable() {
                                     <DeleteRowButton delete_id={entry.id} />
                                 </div>
                             </td>
+
+                            {/* Display all the calculated data */}
+                            <td className="p-2 text-right">${entry.gross_profit?.toFixed(2)}</td>
+                            <td className="p-2 text-right">${entry.se_tax?.toFixed(2)}</td>
+                            <td className="p-2 text-right">${entry.net_profit?.toFixed(2)}</td>
                         </tr>;
                     })}
                 </tbody>

@@ -7,8 +7,8 @@ export default function EarningForm() {
     // [value, setValue] ~~ [variable, function to update variable]
     const [in_date, setDate] = useState("");           // date
     const [in_source, setSource] = useState("AmznFlex");  // default to AmznFlex
-    const [in_income, setIncome] = useState("");       // float
-    const [in_mileage, setMileage] = useState("");     // float
+    const [in_income, setIncome] = useState("");       // string
+    const [in_mileage, setMileage] = useState("");     // string
 
     // submit message to show result of submit action
     const [submit_msg, setSubmitMsg] = useState("");
@@ -29,14 +29,21 @@ export default function EarningForm() {
             return;
         }
 
-        // wait and insert: date, source, income, mileage
+        const cal_gross_profit = parseFloat(in_income) - parseFloat(in_mileage) * 0.725;
+        const cal_se_tax = cal_gross_profit * 0.153;
+        const cal_net_profit = cal_gross_profit - cal_se_tax;
+
+        // wait and insert: date, source, income, mileage, etc
         const { error } = await supabase.from("earnings").insert(
             {
                 user_id: user.id,
                 date: in_date,
                 source: in_source,
                 income: parseFloat(in_income),
-                mileage: parseFloat(in_mileage)
+                mileage: parseFloat(in_mileage),
+                gross_profit: cal_gross_profit,
+                se_tax: cal_se_tax,
+                net_profit: cal_net_profit
             }
         );
 
