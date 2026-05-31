@@ -50,8 +50,8 @@ export default async function EarningsTable() {
                             {/* Display all the data */}
                             <td className="p-2">{entry.date}</td>
                             <td className="p-2">{entry.source}</td>
-                            <td className="p-2">{entry.income}</td>
-                            <td className="p-2">{entry.mileage}</td>
+                            <td className="p-2 text-right">${entry.income.toFixed(2)}</td>
+                            <td className="p-2 text-right">{entry.mileage.toFixed(2)}</td>
 
                             {/* Display the Edit Button */}
                             <td className="p-2">
