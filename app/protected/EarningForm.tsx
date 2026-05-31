@@ -46,38 +46,45 @@ export default function EarningForm() {
 
             // else, show success msg
         } else {
-            setSubmitMsg("Your entry has been added");
+            setSubmitMsg("[Your entry has been added]");
             router.refresh();  // refresh page to show new entry in earnings table
         }
     }
 
     return (
-        <form onSubmit={handleSubmit} className="flex gap-2">
-            {/* When an input changes, React gives you an event. The typed value lives in
-              * event.target.value
-              */}
+        <form onSubmit={handleSubmit} className="flex flex-col">
+            <div className="flex gap-2">
+                {/* When an input changes, React gives you an event. The typed value lives in
+                * event.target.value
+                */}
 
-            {/* Date */}
-            <input type="date" value={in_date} onChange={(event) => setDate(event.target.value)} />
+                {/* Date */}
+                <input type="date" value={in_date} onChange={(event) => setDate(event.target.value)} />
 
-            {/* Source: Amz, Uber, etc */}
-            <select value={in_source} onChange={(event) => setSource(event.target.value)}>
-                <option value="AmznFlex">AmznFlex</option>
-                <option value="DoorDash">DoorDash</option>
-                <option value="UberEats">UberEats</option>
-            </select>
+                {/* Source: Amz, Uber, etc */}
+                <select value={in_source} onChange={(event) => setSource(event.target.value)}>
+                    <option value="AmznFlex">AmznFlex</option>
+                    <option value="DoorDash">DoorDash</option>
+                    <option value="UberEats">UberEats</option>
+                </select>
 
-            {/* Income */}
-            <input type="number" value={in_income} onChange={(event) => setIncome(event.target.value)} />
+                {/* Income */}
+                <input type="number" value={in_income} onChange={(event) => setIncome(event.target.value)} />
 
-            {/* Mileage Driven */}
-            <input type="number" value={in_mileage} onChange={(event) => setMileage(event.target.value)} />
+                {/* Mileage Driven */}
+                <input type="number" value={in_mileage} onChange={(event) => setMileage(event.target.value)} />
 
-            {/* Submit button */}
-            <button type="submit">Submit</button>
+                {/* Submit button */}
+                <button type="submit">Submit</button>
+            </div>
 
-            {/* Display the submit result */}
-            {submit_msg}
+            <div className="p-2 text-center">
+                {/* justify-* controls vertical positioning
+                items-* controls horizontal positioning */}
+
+                {/* Display the submit result */}
+                {submit_msg}
+            </div>
 
         </form>
     );

@@ -14,7 +14,10 @@ export default function ProtectedPage() {
         </div>
       </div>
 
-      <EarningForm />
+      <div className="flex flex-col gap-2 items-start">
+        <h2 className="font-bold text-2xl mb-4">Add New Entry</h2>
+        <EarningForm />
+      </div>
 
       <div className="flex flex-col gap-2 items-start">
         <h2 className="font-bold text-2xl mb-4">Earnings Table</h2>
