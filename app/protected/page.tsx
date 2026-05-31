@@ -3,6 +3,7 @@ import { InfoIcon } from "lucide-react";
 import { Suspense } from "react";
 import EarningForm from "./EarningForm";
 import DeleteRowButton from "./DeleteRowButton";
+import EditRowButton from "./EditRowButton";
 
 async function EarningsTable() {
   let content;  // return var
@@ -26,10 +27,23 @@ async function EarningsTable() {
   } else {
     content = earnings.map((entry) => {
       return <div key={entry.id}>
+
+        {/* Display all the data */}
         {entry.date}
         {entry.source}
         {entry.income}
         {entry.mileage}
+
+        {/* Display the Edit Button */}
+        <EditRowButton
+          target_id={entry.id}
+          date={entry.date}
+          source={entry.source}
+          income={entry.income}
+          mileage={entry.mileage}
+        />
+
+        {/* Display the Delete button */}
         <DeleteRowButton delete_id={entry.id} />
       </div>;
     })
